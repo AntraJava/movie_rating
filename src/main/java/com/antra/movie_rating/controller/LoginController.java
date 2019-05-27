@@ -3,9 +3,13 @@ package com.antra.movie_rating.controller;
 import com.antra.movie_rating.api.request.LoginRequest;
 import com.antra.movie_rating.api.request.SignUpRequest;
 import com.antra.movie_rating.api.response.JwtAuthenticationResponse;
+import com.antra.movie_rating.api.response.UserResponse;
 import com.antra.movie_rating.config.security.JwtTokenProvider;
 import com.antra.movie_rating.dao.UserRepository;
+import com.antra.movie_rating.dao.UserRoleRepository;
+import com.antra.movie_rating.domain.RoleName;
 import com.antra.movie_rating.domain.User;
+import com.antra.movie_rating.domain.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -32,8 +37,8 @@ public class LoginController {
 	@Autowired
 	UserRepository userRepository;
 
-//	@Autowired
-//	RoleRepository roleRepository;
+	@Autowired
+	UserRoleRepository roleRepository;
 
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -58,35 +63,29 @@ public class LoginController {
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
-//		if(userRepository.existsByUsername(signUpRequest.getUsername())) {
-//			return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
-//					HttpStatus.BAD_REQUEST);
-//		}
-//
-//		if(userRepository.existsByEmail(signUpRequest.getEmail())) {
-//			return new ResponseEntity(new ApiResponse(false, "Email Address already in use!"),
-//					HttpStatus.BAD_REQUEST);
-//		}
-//
-//		// Creating user's account
-//		User user = new User(signUpRequest.getName(), signUpRequest.getUsername(),
-//				signUpRequest.getEmail(), signUpRequest.getPassword());
-//
-//		user.setPassword(passwordEncoder.encode(user.getPassword()));
-//
-//		Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-//				.orElseThrow(() -> new AppException("User Role not set."));
-//
-//		user.setRoles(Collections.singleton(userRole));
-//
-//		User result = userRepository.save(user);
-//
-//		URI location = ServletUriComponentsBuilder
-//				.fromCurrentContextPath().path("/api/users/{username}")
-//				.buildAndExpand(result.getUsername()).toUri();
-//
-//		return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
-		return null;
+	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest newUser) {
+		if(userRepository.existsByUsername(newUser.getUsername())) {
+			return new ResponseEntity(new UserResponse(false, "Username is already taken!"),
+					HttpStatus.BAD_REQUEST);
+		}
+
+		if(userRepository.existsByEmail(newUser.getEmail())) {
+			return new ResponseEntity(new UserResponse(false, "Email Address already in use!"),
+					HttpStatus.BAD_REQUEST);
+		}
+
+		UserRole role = new UserRole(RoleName.ROLE_USER);
+		User user = new User(newUser.getName(),newUser.getUsername(),newUser.getEmail()
+				,passwordEncoder.encode(newUser.getPassword()),
+				Collections.singleton(role));
+		role.setUser(user);
+
+		User result = userRepository.save(user);
+
+		URI location = ServletUriComponentsBuilder
+				.fromCurrentContextPath().path("/api/users/{username}")
+				.buildAndExpand(result.getUsername()).toUri();
+
+		return ResponseEntity.created(location).body(new UserResponse(true, "User registered successfully"));
 	}
 }

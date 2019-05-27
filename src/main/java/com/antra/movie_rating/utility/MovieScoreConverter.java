@@ -18,7 +18,7 @@ public class MovieScoreConverter {
 		for(Map.Entry<Integer, Integer> rate : vo.getRateStars().entrySet()) {
 			MovieScore score = new MovieScore();
 			score.setMovie(Movie.builder().id(vo.getMovieId()).build());
-			score.setUser(User.builder().id(userId).build());
+			score.setUser(new User(userId));
 			score.setCharact(MovieCharact.builder().id(rate.getKey()).build());
 			score.setScore(rate.getValue());
 			score.setTransactionId(txId);

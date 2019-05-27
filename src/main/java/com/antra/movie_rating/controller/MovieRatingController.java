@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin("*")
 @Slf4j
+@Secured({"ROLE_USER", "ROLE_ADMIN"})
 public class MovieRatingController {
 
 	@Autowired

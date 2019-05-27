@@ -3,7 +3,10 @@ package com.antra.movie_rating.controller;
 import com.antra.movie_rating.api.request.MovieCriteria;
 import com.antra.movie_rating.api.response.MovieListResp;
 import com.antra.movie_rating.api.response.MovieVO;
+import com.antra.movie_rating.config.security.LoginUser;
+import com.antra.movie_rating.config.security.UserPrincipal;
 import com.antra.movie_rating.domain.Movie;
+import com.antra.movie_rating.domain.User;
 import com.antra.movie_rating.exception.MovieNotExistExeption;
 import com.antra.movie_rating.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +33,7 @@ public class MovieController {
 //	}
 	//http://www.omdbapi.com/?apikey=27c4caaf&t=harry
 	@GetMapping("/movie")
-	public MovieListResp getMovie(@RequestParam String title){
+	public MovieListResp getMovie(@RequestParam String title, @LoginUser UserPrincipal user){
 		Movie movie = movieService.searchMovie(new MovieCriteria(title));
 		if (StringUtils.isEmpty(movie.getTitle())) {
 			throw new MovieNotExistExeption();
