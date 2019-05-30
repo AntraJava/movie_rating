@@ -46,7 +46,7 @@ public class Movie {
 
 	@OneToMany
 	@JsonIgnore
-	private List<MovieScore> rating;
+	private List<MovieRating> rating;
 
 
 }

@@ -12,20 +12,13 @@ public class MovieScore {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name="user_id")
-	private User user;
-
-	@ManyToOne
-	@JoinColumn(name="movie_id")
-	private Movie movie;
-
-	@ManyToOne
 	@JoinColumn(name="movie_char_id")
 	private MovieCharact charact;
 
 	@Column(name="score")
 	private Integer score;
 
-	@Column(name = "tx_id")
-	private String transactionId;
+	@ManyToOne
+	@JoinColumn(name="movie_rating_id")
+	private MovieRating rating;
 }

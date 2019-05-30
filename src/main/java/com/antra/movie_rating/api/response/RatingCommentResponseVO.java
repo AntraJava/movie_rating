@@ -5,14 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+import java.util.Map;
+
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class RatingResponseVO {
-	private String msg;
-	private Float rating;
+public class RatingCommentResponseVO {
 	private int movieId;
-	private boolean enableRate;
-	private int userId;
+	private String username;
+	private Map<String, Integer> detailScore;
+	private String comment;
+	private Date timeStamp;
 }

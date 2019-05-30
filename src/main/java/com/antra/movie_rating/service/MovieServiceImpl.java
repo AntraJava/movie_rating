@@ -1,8 +1,10 @@
 package com.antra.movie_rating.service;
 
 import com.antra.movie_rating.api.request.MovieCriteria;
+import com.antra.movie_rating.dao.MovieAverageScoreRepository;
 import com.antra.movie_rating.dao.MovieDAO;
 import com.antra.movie_rating.domain.Movie;
+import com.antra.movie_rating.domain.MovieAverageScore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +13,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.transaction.Transactional;
 import java.util.*;
 
 
@@ -25,6 +27,9 @@ public class MovieServiceImpl implements MovieService {
 
 	@Autowired
 	MovieDAO movieDAO;
+
+	@Autowired
+	MovieAverageScoreRepository avgScoreDAO;
 
 	@Override
 	@Cacheable(key="#criteria.title", value="movieCache", sync = true)
@@ -84,6 +89,14 @@ public class MovieServiceImpl implements MovieService {
 
 		return result;
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public MovieAverageScore getMovieAverageScoreById(Integer id) {
+		return avgScoreDAO.findByMovieId(id);
+	}
+
+
 
 
 }
