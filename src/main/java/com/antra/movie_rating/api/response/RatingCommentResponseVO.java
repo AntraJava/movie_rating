@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Data
@@ -15,7 +16,7 @@ import java.util.Map;
 public class RatingCommentResponseVO {
 	private int movieId;
 	private String username;
-	private Map<String, Integer> detailScore;
+	private List<RateScoreVO> detailScore;
 	private String comment;
 	private Date timeStamp;
 }
