@@ -15,7 +15,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -55,6 +57,14 @@ public class MovieController {
 			throw new MovieNotExistExeption();
 		}
 		return new MovieVO(movie);
+	}
+
+	@GetMapping("/ratingTotal")
+	public Map<String, String> getMovieDetail(@RequestParam Integer userId){
+		Map<String, String> response = new HashMap<>();
+		response.put("totalNo", String.valueOf(12));
+		response.put("userId", String.valueOf(userId));
+		return response;
 	}
 
 	@ExceptionHandler

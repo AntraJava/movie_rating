@@ -10,6 +10,7 @@ import com.antra.movie_rating.domain.MovieAverageScore;
 import com.antra.movie_rating.domain.MovieCharact;
 import com.antra.movie_rating.domain.MovieRating;
 import com.antra.movie_rating.domain.MovieScore;
+import com.antra.movie_rating.utility.RatingConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
@@ -65,20 +66,16 @@ public class MovieRatingServiceImpl implements MovieRatingService {
 	public List<RatingCommentResponseVO> getRatingCommentInfo(int movieId, int page, int recordNo, Date fromTime) {
 		Pageable pageCriteria = PageRequest.of(page, recordNo, Sort.by(Sort.Direction.DESC, "createdDate"));
 		List<MovieRating> ratingList = ratingDAO.findByCreatedDateBeforeAndMovieId(fromTime, movieId, pageCriteria);
-		List<RatingCommentResponseVO> result = ratingList.stream().map(rating -> {
-			RatingCommentResponseVO vo = new RatingCommentResponseVO();
-			vo.setMovieId(rating.getMovie().getId());
-			vo.setComment(rating.getComment());
-			vo.setUsername(rating.getUser().getName());
-			vo.setTimeStamp(rating.getCreatedDate());
-			List<RateScoreVO> detail = new ArrayList<>();
-			for (MovieScore score : rating.getScores()) {
-				detail.add(new RateScoreVO(score.getCharact().getName(), score.getScore()));
-			}
-			vo.setDetailScore(detail);
-			return vo;
-		}).collect(Collectors.toList());
-		return result;
+		return RatingConverter.convertRatingListToResponseVO(ratingList);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<RatingCommentResponseVO> getRatingByUserId(int userId,int recordNo, int page) {
+		Pageable pageCriteria = PageRequest.of(page, recordNo, Sort.by(Sort.Direction.DESC, "createdDate"));
+		List<MovieRating> ratingList = ratingDAO.findByUserIdOrderByCreatedDateDesc(userId, pageCriteria);
+
+		return RatingConverter.convertRatingListToResponseVO(ratingList);
 	}
 
 

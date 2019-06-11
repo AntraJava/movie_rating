@@ -90,6 +90,13 @@ public class MovieRatingController {
 		return new ResponseEntity<Object>(result, HttpStatus.OK);
 	}
 
+	@GetMapping("/ratingByUser")
+	public ResponseEntity<Object>  getMovieRatingByUserId(@RequestParam int page, @RequestParam int recordNo, @RequestParam int userId){
+		List<RatingCommentResponseVO> result= ratingService.getRatingByUserId(userId, recordNo, page);
+		log.info("UserId {} Page {}", userId, page);
+		return new ResponseEntity<Object>(result, HttpStatus.OK);
+	}
+
 	@ExceptionHandler
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public void noMovieFound(MovieNotExistExeption ex) {

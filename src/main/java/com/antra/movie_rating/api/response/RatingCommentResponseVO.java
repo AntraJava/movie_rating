@@ -15,6 +15,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class RatingCommentResponseVO {
 	private int movieId;
+	private String movieTitle;
 	private String username;
 	private List<RateScoreVO> detailScore;
 	private String comment;

@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `movie_rating` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
+USE `movie_rating`;
 -- MySQL dump 10.13  Distrib 8.0.15, for macos10.14 (x86_64)
 --
 -- Host: localhost    Database: movie_rating
@@ -35,8 +37,17 @@ CREATE TABLE `movie` (
   `imdbid` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `imdbid_UNIQUE` (`imdbid`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `movie`
+--
+
+LOCK TABLES `movie` WRITE;
+/*!40000 ALTER TABLE `movie` DISABLE KEYS */;
+/*!40000 ALTER TABLE `movie` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `movie_average`
@@ -53,8 +64,17 @@ CREATE TABLE `movie_average` (
   PRIMARY KEY (`id`),
   KEY `movie_fk_idx` (`movie_id`),
   CONSTRAINT `movie_avg_fk` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `movie_average`
+--
+
+LOCK TABLES `movie_average` WRITE;
+/*!40000 ALTER TABLE `movie_average` DISABLE KEYS */;
+/*!40000 ALTER TABLE `movie_average` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `movie_characteristics`
@@ -70,6 +90,16 @@ CREATE TABLE `movie_characteristics` (
   UNIQUE KEY `name_UNIQUE` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `movie_characteristics`
+--
+
+LOCK TABLES `movie_characteristics` WRITE;
+/*!40000 ALTER TABLE `movie_characteristics` DISABLE KEYS */;
+INSERT INTO `movie_characteristics` VALUES (2,'Cast'),(1,'Graphics'),(5,'Music'),(3,'Role'),(4,'Story');
+/*!40000 ALTER TABLE `movie_characteristics` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `movie_rating`
@@ -89,8 +119,17 @@ CREATE TABLE `movie_rating` (
   KEY `movie_rating_user_FK_idx` (`user_id`),
   CONSTRAINT `movie_rating_id_FK` FOREIGN KEY (`movie_id`) REFERENCES `movie` (`id`),
   CONSTRAINT `movie_rating_user_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `movie_rating`
+--
+
+LOCK TABLES `movie_rating` WRITE;
+/*!40000 ALTER TABLE `movie_rating` DISABLE KEYS */;
+/*!40000 ALTER TABLE `movie_rating` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `movie_score`
@@ -109,8 +148,17 @@ CREATE TABLE `movie_score` (
   KEY `movie_score_rating_FK_idx` (`movie_rating_id`),
   CONSTRAINT `movie_char_FK` FOREIGN KEY (`movie_char_id`) REFERENCES `movie_characteristics` (`id`),
   CONSTRAINT `movie_score_rating_FK` FOREIGN KEY (`movie_rating_id`) REFERENCES `movie_rating` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `movie_score`
+--
+
+LOCK TABLES `movie_score` WRITE;
+/*!40000 ALTER TABLE `movie_score` DISABLE KEYS */;
+/*!40000 ALTER TABLE `movie_score` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user`
@@ -126,8 +174,17 @@ CREATE TABLE `user` (
   `password` varchar(200) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_role`
@@ -143,8 +200,17 @@ CREATE TABLE `user_role` (
   PRIMARY KEY (`id`),
   KEY `user_FK_idx` (`user_id`),
   CONSTRAINT `user_role_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_role`
+--
+
+LOCK TABLES `user_role` WRITE;
+/*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -155,4 +221,4 @@ CREATE TABLE `user_role` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-04  9:52:43
+-- Dump completed on 2019-06-11 16:42:20

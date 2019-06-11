@@ -10,4 +10,6 @@ public interface MovieRatingDAO extends JpaRepository<MovieRating, Integer> {
 	List<MovieRating> findByUserIdAndMovieId(int movieId, int userId);
 
 	List<MovieRating> findByCreatedDateBeforeAndMovieId(Date fromTime, int movieId, Pageable pageable);
+
+	List<MovieRating> findByUserIdOrderByCreatedDateDesc(int userId, Pageable pageCriteria);
 }

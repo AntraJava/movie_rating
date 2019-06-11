@@ -18,4 +18,6 @@ public interface MovieRatingService {
 	boolean getIfUserCanRateMovie(int movieId, int userId);
 
 	List<RatingCommentResponseVO> getRatingCommentInfo(int movieId, int page, int recordNo, Date fromTime);
+
+	List<RatingCommentResponseVO> getRatingByUserId(int userId, int recordNo, int page);
 }
