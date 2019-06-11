@@ -19,7 +19,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.*;
 
-
 @Service
 public class MovieServiceImpl implements MovieService {
 
@@ -95,8 +94,5 @@ public class MovieServiceImpl implements MovieService {
 	public MovieAverageScore getMovieAverageScoreById(Integer id) {
 		return avgScoreDAO.findByMovieId(id);
 	}
-
-
-
 
 }

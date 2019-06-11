@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface MovieService {
 
-	public Movie searchMovie(MovieCriteria criteria);
+	Movie searchMovie(MovieCriteria criteria);
 
-	public List<Movie> searchMovie(String type);
+	List<Movie> searchMovie(String type);
 
-	public MovieAverageScore getMovieAverageScoreById(Integer id);
+	MovieAverageScore getMovieAverageScoreById(Integer id);
 
 }
