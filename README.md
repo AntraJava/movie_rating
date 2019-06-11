@@ -1,4 +1,4 @@
-#Movie Rating backend
+# Movie Rating backend
 
 ## Development 
 Using Spring Boot main class to start the app.
