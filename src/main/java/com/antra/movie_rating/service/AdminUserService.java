@@ -9,4 +9,8 @@ public interface AdminUserService {
 	List<User> getAllUsers(int page);
 
 	Optional<User> getUserById(int userId);
+
+	Boolean addAdminRole(int id);
+
+	int removeAdminRole(int id);
 }

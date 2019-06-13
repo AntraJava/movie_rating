@@ -24,7 +24,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @RestController
 @CrossOrigin("*")
@@ -75,12 +76,16 @@ public class LoginController {
 					HttpStatus.BAD_REQUEST);
 		}
 
+		Set<UserRole> roles = new HashSet<>();
 		UserRole role = new UserRole(RoleName.ROLE_USER);
+		roles.add(role);
+		if (newUser.getAdmin()) {
+			roles.add(new UserRole(RoleName.ROLE_ADMIN));
+		}
 		User user = new User(newUser.getName(),newUser.getUsername(),newUser.getEmail()
 				,passwordEncoder.encode(newUser.getPassword()),
-				Collections.singleton(role));
-		role.setUser(user);
-
+				roles);
+		roles.stream().forEach(r -> r.setUser(user));
 		User result = userRepository.save(user);
 
 		URI location = ServletUriComponentsBuilder
