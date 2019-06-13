@@ -19,7 +19,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -30,7 +29,7 @@ import java.util.Collections;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/auth")
-@Api(value = "User",tags={"User"})
+@Api(value = "Signin",tags={"Singin"})
 public class LoginController {
 
 	@Autowired

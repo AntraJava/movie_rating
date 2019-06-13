@@ -1,14 +1,10 @@
 package com.antra.movie_rating.controller;
 
-import com.antra.movie_rating.api.request.MovieCriteria;
 import com.antra.movie_rating.api.request.RatingVO;
-import com.antra.movie_rating.api.response.MovieListResp;
-import com.antra.movie_rating.api.response.MovieVO;
 import com.antra.movie_rating.api.response.RatingCommentResponseVO;
 import com.antra.movie_rating.api.response.RatingResponseVO;
 import com.antra.movie_rating.config.security.LoginUser;
 import com.antra.movie_rating.config.security.UserPrincipal;
-import com.antra.movie_rating.domain.Movie;
 import com.antra.movie_rating.domain.MovieCharact;
 import com.antra.movie_rating.domain.MovieRating;
 import com.antra.movie_rating.exception.MovieNotExistExeption;
@@ -21,14 +17,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.ws.Response;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin("*")
