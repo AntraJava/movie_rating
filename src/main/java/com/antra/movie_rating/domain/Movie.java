@@ -1,6 +1,5 @@
 package com.antra.movie_rating.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -28,10 +27,10 @@ public class Movie {
 	@JsonProperty("Title")
 	private String title;
 	@JsonProperty("Year")
-	@Column(name="`year`")
+	@Column(name="year")
 	private String year;
 	@JsonProperty("Released")
-	@Column(name="`release`")
+	@Column(name="release")
 	private String release;
 	@JsonProperty("Runtime")
 	private String runtime;

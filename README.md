@@ -5,6 +5,8 @@ Using Spring Boot main class to start the app.
 Before running, run DB scripts to generate all the tables.
 Make sure the datasource is changed in `application.properties` file.
 
+## Swagger
+API document [`Swagger`](http://localhost:8080/swagger-ui.html#/)
 ## Front-end is the project listed in [`rating`](https://github.com/AntraJava/movie_rating_front_end)
 
 ## To Do
