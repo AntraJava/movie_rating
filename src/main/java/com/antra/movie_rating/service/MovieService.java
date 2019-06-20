@@ -14,4 +14,5 @@ public interface MovieService {
 
 	MovieAverageScore getMovieAverageScoreById(Integer id);
 
+	List<Movie> searchAllMovies();
 }

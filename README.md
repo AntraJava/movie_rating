@@ -2,6 +2,7 @@
 
 ## Development 
 Using Spring Boot main class to start the app.
+* Lombok is used. Make sure you have the plugin of Lombok in IntelliJ or eclipse.
 ### DB 
 #### 1. MySQL
 Before running the main app, run DB scripts to generate all the tables.

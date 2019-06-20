@@ -39,6 +39,17 @@ public class MovieController {
 		return resp;
 	}
 
+	@PostMapping("/movie/all")
+	public MovieListResp searchMovie() {//@RequestBody Pageable criteria
+		List<Movie> movies = movieService.searchAllMovies();
+		if (movies.size() < 1) {
+			throw new MovieNotExistExeption();
+		}
+		MovieListResp resp = new MovieListResp();
+		resp.setMovies(movies.stream().map(m->new MovieVO(m)).collect(Collectors.toList()));
+		return resp;
+	}
+
 	@GetMapping("/movie/popular")
 	public MovieListResp getMovieTypes(@RequestParam String type){
 		List<Movie> movies = movieService.searchMovie(type);
