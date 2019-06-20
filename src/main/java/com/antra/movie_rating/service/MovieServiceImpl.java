@@ -17,7 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -93,6 +94,11 @@ public class MovieServiceImpl implements MovieService {
 	@Transactional(readOnly = true)
 	public MovieAverageScore getMovieAverageScoreById(Integer id) {
 		return avgScoreDAO.findByMovieId(id);
+	}
+
+	@Override
+	public List<Movie> searchAllMovies() {
+		return movieDAO.findAll();
 	}
 
 }

@@ -26,7 +26,7 @@ import java.util.List;
 @CrossOrigin("*")
 @Slf4j
 @Secured({"ROLE_USER", "ROLE_ADMIN"})
-@RequestMapping("/movie")
+@RequestMapping("/rating")
 public class MovieRatingController {
 
 	@Autowired
