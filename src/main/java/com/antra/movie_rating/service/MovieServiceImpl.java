@@ -5,20 +5,19 @@ import com.antra.movie_rating.dao.MovieAverageScoreRepository;
 import com.antra.movie_rating.dao.MovieDAO;
 import com.antra.movie_rating.domain.Movie;
 import com.antra.movie_rating.domain.MovieAverageScore;
+import com.antra.movie_rating.service.feign.OmdbClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -30,6 +29,9 @@ public class MovieServiceImpl implements MovieService {
 
 	@Autowired
 	MovieAverageScoreRepository avgScoreDAO;
+
+	@Autowired
+	OmdbClient omdbClient;
 
 	@Override
 	@Cacheable(key="#criteria.title", value="movieCache", sync = true)
@@ -43,21 +45,29 @@ public class MovieServiceImpl implements MovieService {
 		String url = "http://www.omdbapi.com";
 		RestTemplate rt = new RestTemplate();
 
-		UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
-				.queryParam("apikey", "27c4caaf")
-				.queryParam("t", criteria.getTitle())
-				.queryParam("plot", "full");
+//		UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
+//				.queryParam("apikey", "27c4caaf")
+//				.queryParam("t", criteria.getTitle())
+//				.queryParam("plot", "full");
+//
+//		RequestEntity<Void> request = RequestEntity
+//					.get(uriBuilder.build().toUri()).accept(MediaType.APPLICATION_JSON).build();
+//		ResponseEntity<Movie> movie = rt.exchange(request, Movie.class);
+//		Movie movie = rt.exchange(request, Movie.class);
 
-		RequestEntity<Void> request = RequestEntity
-					.get(uriBuilder.build().toUri()).accept(MediaType.APPLICATION_JSON).build();
-		ResponseEntity<Movie> movie = rt.exchange(request, Movie.class);
+		Map<String, String> params = new HashMap<>();
+		params.put("apikey", "27c4caaf");
+		params.put("t", criteria.getTitle());
+		params.put("plot", "full");
+		Movie movie = omdbClient.getMovieByTitle(params);
+
 
 		LOGGER.info(movie.toString());
-		if (movieDAO.findByImdbIdIgnoreCase(movie.getBody().getImdbId()) == null) {
-			movieDAO.save(movie.getBody());
+		if (movieDAO.findByImdbIdIgnoreCase(movie.getImdbId()) == null) {
+			movieDAO.save(movie);
 		}
 
-		return movie.getBody();
+		return movie;
 	}
 
 	@Override

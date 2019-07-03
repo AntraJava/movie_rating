@@ -25,6 +25,12 @@ public class AdminController {
 
 	@GetMapping
 	public UserListAdminResponse getAllUsers(@RequestParam int page){
+//		log.debug();
+//		log.info();
+//		log.trace();
+//		log.warn();
+//		log.error();
+//		log.fatal();
 		List<User> userList = userService.getAllUsers(page);
 		UserListAdminResponse response = new UserListAdminResponse();
 		response.setPage(page);
