@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS movie_average (
    PRIMARY KEY (id)
 );
 
+drop table if exists movie_characteristics;
 create table IF NOT EXISTS  movie_characteristics (
   id integer not null,
   name varchar(255),
