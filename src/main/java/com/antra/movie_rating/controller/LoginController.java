@@ -10,7 +10,6 @@ import com.antra.movie_rating.dao.UserRoleRepository;
 import com.antra.movie_rating.domain.RoleName;
 import com.antra.movie_rating.domain.User;
 import com.antra.movie_rating.domain.UserRole;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +29,6 @@ import java.util.Set;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/auth")
-@Api(value = "Signin",tags={"Singin"})
 public class LoginController {
 
 	@Autowired
