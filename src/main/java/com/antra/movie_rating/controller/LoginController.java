@@ -10,6 +10,7 @@ import com.antra.movie_rating.dao.UserRoleRepository;
 import com.antra.movie_rating.domain.RoleName;
 import com.antra.movie_rating.domain.User;
 import com.antra.movie_rating.domain.UserRole;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin("https://movie.antrasep.com")
 @RequestMapping("/api/auth")
 public class LoginController {
 
@@ -48,7 +49,6 @@ public class LoginController {
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(
 						loginRequest.getUsernameOrEmail(),

@@ -39,8 +39,10 @@ public class Movie {
 	@JsonProperty("Director")
 	private String director;
 	@JsonProperty("Poster")
+	@Column(length = 2000)
 	private String poster;
 	@JsonProperty("Plot")
+	@Column(length = 4000)
 	private String plot;
 
 	@OneToMany
