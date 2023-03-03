@@ -15,7 +15,6 @@ import java.util.Collections;
 @SpringBootApplication
 @EnableCaching
 @EnableJpaAuditing
-@PropertySource("xx.properties")
 public class MovieRatingApplication implements CommandLineRunner {
 
 	@Autowired
