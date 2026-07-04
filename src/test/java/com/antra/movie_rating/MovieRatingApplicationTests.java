@@ -5,16 +5,13 @@ import com.antra.movie_rating.dao.UserRepository;
 import com.antra.movie_rating.dao.UserRoleRepository;
 import com.antra.movie_rating.domain.MovieAverageScore;
 import com.antra.movie_rating.service.MovieService;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-//
-@RunWith(SpringJUnit4ClassRunner.class)
+
 @SpringBootTest
 public class MovieRatingApplicationTests {
 
@@ -29,32 +26,35 @@ public class MovieRatingApplicationTests {
 	@Autowired
 	MovieAverageScoreRepository avgScoreDAO;
 
-	//@Test
+	@Test
 	public void contextLoads() {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		System.out.println(encoder.encode("1234"));
 	}
-//	@Test
-//	@Transactional
+
+	@Disabled("Needs seeded data (database/MovieRating.sql)")
+	@Test
+	@Transactional
 	public void testRoleDAO() {
 		System.out.println(roleRepository.findAll().size());
 	}
 
-	//@Test
+	@Disabled("Needs seeded data (database/MovieRating.sql)")
+	@Test
 	@Transactional
 	public void testUserDAO() {
-//		System.out.println(userRepository.existsByEmail("123@gmail.com"));
 		System.out.println(userRepository.findByUsernameOrEmail("","123@gmail.com").get());
 	}
 
-
-	//@Test
+	@Disabled("Needs seeded data (database/MovieRating.sql)")
+	@Test
 	public void testGetMovieAverageScore() {
 		MovieAverageScore score = movieService.getMovieAverageScoreById(1);
 		System.out.println(score);
 	}
+
+	@Disabled("Needs seeded data (database/MovieRating.sql)")
 	@Test
-//	@Transactional
 	public void testSaveMovieAverageScore() {
 		MovieAverageScore score = avgScoreDAO.updateAverage(1);
 		System.out.println(score);

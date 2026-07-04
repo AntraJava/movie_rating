@@ -7,6 +7,7 @@ import com.antra.movie_rating.domain.Movie;
 import com.antra.movie_rating.domain.MovieAverageScore;
 import com.antra.movie_rating.exception.MovieNotExistExeption;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -17,7 +18,9 @@ import java.util.Optional;
 
 public class MovieAverageScoreRepositoryImpl implements MovieAverageScoreCustomRepo {
 
+	// This fragment is part of MovieAverageScoreRepository itself; @Lazy breaks the self-cycle
 	@Autowired
+	@Lazy
 	MovieAverageScoreRepository movieAverageScoreRepository;
 	@Autowired
 	MovieDAO movieDAO;
